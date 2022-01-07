@@ -2,17 +2,13 @@ package com.dk.algorithm.codeup.basic100;
 
 import java.util.Scanner;
 
-public class No1013 {
+public class No1015 {
 
 	public static void main(String[] args) {
-		int a, b;
 		Scanner sc = new Scanner(System.in);
+		float f;
+		f = sc.nextFloat();
 
-		a = sc.nextInt();
-		b = sc.nextInt();
-
-		System.out.printf("%d %d", a, b);
-
+		System.out.printf("%.2f", f);
 	}
-
 }
