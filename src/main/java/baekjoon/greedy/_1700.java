@@ -25,42 +25,38 @@ public class _1700 {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		int ans = 0;
+		int startIdx = 0;
 
-		for (int i = 0; i < tapCnt; i++) {
-			multiTap.add(arr[i]);
+		for (int i = 0; i < useCnt; i++) {
+			startIdx = i;
+			if (multiTap.size() < tapCnt && !multiTap.contains(arr[i])) multiTap.add(arr[i]);
+			if (multiTap.size() == tapCnt) break;
 		}
-		for (int i = tapCnt; i < useCnt; i++) {
-			if (multiTap.contains(arr[i])) {
-			} else {
-				int[] tool = new int[101];
-				int lastUse = 0;
-				for (int j = i; j < useCnt; j++) {
-					tool[arr[j]]++;
-					if (multiTap.contains(arr[j])) {
-						lastUse = arr[j];
+
+		for (int i = startIdx + 1; i < useCnt; i++) {
+			if (!multiTap.contains(arr[i])) {
+				List<Integer> tempList = new ArrayList<>();
+				for (int j = 0; j < tapCnt; j++) {
+					for (int k = i + 1; k < useCnt; k++) {
+						if (multiTap.contains(arr[k]) && !tempList.contains(arr[k])) {
+							tempList.add(arr[k]);
+							break;
+						}
 					}
 				}
-				int cnt = 0;
-				for (int j = 0; j < multiTap.size(); j++) {
-					if (tool[multiTap.get(j)] == 0) {
-						multiTap.remove(j);
-						ans++;
-						multiTap.add(arr[i]);
-						break;
-					} else if (tool[multiTap.get(j)] > 0) {
-						cnt++;
-					}
-				}
-				for (int j = 0; j < multiTap.size(); j++) {
-					if (multiTap.get(j) == lastUse) {
-						lastUse = j;
-						break;
-					}
-				}
-				if (cnt == multiTap.size()) {
-					multiTap.remove(lastUse);
+				if (tempList.size() == tapCnt) {
+					multiTap.remove(tempList.get(tapCnt - 1));
 					ans++;
 					multiTap.add(arr[i]);
+				} else {
+					for (int j = 0; j < tapCnt; j++) {
+						if (!tempList.contains(multiTap.get(j))) {
+							multiTap.remove(j);
+							ans++;
+							multiTap.add(arr[i]);
+							break;
+						}
+					}
 				}
 			}
 		}
