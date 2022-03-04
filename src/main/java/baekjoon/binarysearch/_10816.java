@@ -22,17 +22,13 @@ public class _10816 {
 		Map<Integer, Integer> map = new HashMap<>();
 		while (st.hasMoreTokens()) {
 			int k = Integer.parseInt(st.nextToken());
-			if (map.get(k) == null) {
-				map.put(k, 1);
-			} else {
-				map.put(k, map.get(k) + 1);
-			}
+			map.put(k, map.getOrDefault(k, 0) + 1);
 		}
 		int m = Integer.parseInt(br.readLine());
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < m; i++) {
 			int k = Integer.parseInt(st.nextToken());
-			bw.write(String.valueOf(map.get(k) == null ? 0 : map.get(k)) + " ");
+			bw.write(String.valueOf(map.getOrDefault(k, 0)) + " ");
 		}
 
 		bw.flush();
